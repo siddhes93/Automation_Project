@@ -27,10 +27,21 @@ tar -czvf ${myname}-httpd-logs-${timestamp}.tar access.log error.log
 
 cp ${myname}-httpd-logs-${timestamp}.tar /tmp/
 
+# pushing files to s3 bucket
 aws s3 \
 cp /tmp/${myname}-httpd-logs-*.tar \
 s3://${s3_bucket}/${myname}-httpd-logs-${timestamp}.tar
 
+echo "Files are pushed to s3 buket successfully"
 
+#THis set of lines is to test whether the cron batch files exists or not"
+
+echo " checking cron batch file exits or not"
+if [ ! -f /etc/cron.d/automation.sh ]
+then
+    echo "File does not exist in Bash"
+else
+    echo "File found. and root has permission to exists"
+fi
 
 
